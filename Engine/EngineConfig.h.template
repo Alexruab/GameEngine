@@ -1,0 +1,6 @@
+#pragma once
+
+#define Engine_VERSION_MAJOR @GameEngines_VERSION_MAJOR@
+#define Engine_VERSION_MINOR @GameEngines_VERSION_MINOR@
+#define Engine_VERSION_PATCH @GameEngines_VERSION_PATCH@
+#define Engine_VERSION_STRING "@GameEngines_VERSION@"
