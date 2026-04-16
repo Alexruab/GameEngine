@@ -84,7 +84,7 @@ concept ValidLogVerbosityLevel = V == LogVerbosity::NoLogging //
             static_assert(GameEngine::ValidLogCategory<decltype(categoryName)>, "Category must be of type LogCategory");\
             static_assert(GameEngine::LoggableMassege<decltype(formatStr)>, "Massage type must be convertable to string");\
             static_assert(GameEngine::ValidLogVerbosityLevel<GameEngine::LogVerbosity::verbosity>, "Verbosity must be one of: NoLogging, Display, Warning, Error, Log, Fatal");\
-            GameEngine::Log::getInstance().log(categoryName, GameEngine::LogVerbosity::verbosity, std::format(formatStr, __VA_ARGS__), showLocation);\
+            GameEngine::Log::getInstance().log(categoryName, GameEngine::LogVerbosity::verbosity, std::format(formatStr __VA_OPT__(,) __VA_ARGS__), showLocation);\
         }\
     }\
     while (0)

@@ -29,6 +29,11 @@ add_library(${PROJECT_NAME}Lib ${ENGINE_SOURCES})
 target_include_directories(${PROJECT_NAME}Lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Source)
 target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}Lib)
 
+if(MSVC)
+    target_compile_options(${PROJECT_NAME}Lib PUBLIC /Zc:preprocessor)
+endif()
+
+
 # add libs
 find_package(spdlog REQUIRED)
 target_link_libraries(${PROJECT_NAME}Lib PUBLIC spdlog::spdlog)
