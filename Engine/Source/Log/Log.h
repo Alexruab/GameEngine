@@ -1,6 +1,11 @@
 #pragma once
 
 #include "memory"
+#include <source_location>
+#include <format>
+#include <string>
+#include <string_view>
+#include <concepts>
 #include "Core/Utility.h"
 
 namespace GameEngine
