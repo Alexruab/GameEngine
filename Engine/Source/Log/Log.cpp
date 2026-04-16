@@ -4,6 +4,8 @@
 #include <unordered_map>
 #include <filesystem>
 #include <chrono>
+#include <source_location>
+#include <concepts>
 
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
@@ -49,18 +51,18 @@ public:
 
     void log(LogVerbosity verbosity, const std::string& massage)
     {
-        if (verbosity == LogVerbosity::NoLogging) return;
-        const auto spdLevelIt = c_verbosityMap.find(verbosity);
-        if (spdLevelIt == c_verbosityMap.end()) return;
-        
-        const auto spdLevel = spdLevelIt->second;
+        const auto spdLevel = c_verbosityMap.at(verbosity);
 
-        if (verbosity != LogVerbosity::Log)
+        if (verbosity != LogVerbosity::Log && m_consoleLogger->should_log(spdLevel))
         {
             m_consoleLogger->log(spdLevel, massage);
         }
+
+        if (m_fileLogger->should_log(spdLevel))
+        {
+            m_fileLogger->log(spdLevel, massage);
+        }
         
-        m_fileLogger->log(spdLevel, massage);
         
         if (verbosity == LogVerbosity::Fatal)
         {
@@ -90,8 +92,12 @@ private:
 Log::Log(): m_pImpl(std::make_unique<Impl>()) {}
 Log::~Log() = default;
 
-void Log::log(const LogCategory& category, LogVerbosity verbosity, const std::string& massage) const
+void Log::log(const LogCategory& category, LogVerbosity verbosity, const std::string& massage, bool showLocation,
+        std::source_location location) const
 {
-    m_pImpl->log(verbosity, std::format("[{}] {}", category.name(), massage));
+    const std::string fmtMsg =
+        showLocation ? std::format("[{}] [{}:{}] {}", category.name(), location.function_name(), location.line(), massage)
+        : std::format("[{}] {}", category.name(), massage);
+    m_pImpl->log(verbosity, fmtMsg);
 }
 

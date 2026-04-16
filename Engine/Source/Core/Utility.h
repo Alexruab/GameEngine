@@ -14,6 +14,11 @@ namespace GameEngine
         NonCopyabel(NonCopyabel&&) = default;
         NonCopyabel& operator=(NonCopyabel&&) = default;
     };
-
-    #define PLATFORM_BREAK() (__nop(), __debugbreak());
 }
+
+#if defined(_MSC_VER)
+#define PLATFORM_BREAK() __debugbreak()
+#else
+#include <signal.h>
+#define PLATFORM_BREAK() raise(SIGTRAP);
+#endif
