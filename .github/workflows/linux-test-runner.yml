@@ -15,8 +15,7 @@ jobs:
     strategy:
       matrix:
         target:
-          - DoodleJumpGameTestRunner
-          - FightClubGameTestRunner
+          - GameEnginesTestRunner
 
     env:
       TEST_REPORT_PATH: ${{github.workspace}}/build/bin/${{matrix.target}}-report.xml

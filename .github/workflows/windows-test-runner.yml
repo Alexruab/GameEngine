@@ -33,7 +33,7 @@ jobs:
         run: cmake --build ${{github.workspace}}/build --config ${{env.CONFIGURATION}} -v --target ${{matrix.target}}
 
       - name: Run tests
-        run: ${{github.workspace}}/build/bin/${{matrix.target}}.exe --gtest_output=xml:"${{env.TEST_REPORT_PATH}}"
+        run: ${{github.workspace}}/build/bin/${{env.CONFIGURATION}}/${{matrix.target}}.exe --gtest_output=xml:"${{env.TEST_REPORT_PATH}}"
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
