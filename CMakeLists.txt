@@ -1,5 +1,5 @@
 # general info
-cmake_minimum_required(VERSION 4.2)
+cmake_minimum_required(VERSION 3.30)
 
 # setup conan profiles
 set(PROFILE_PATH_Windows_Release "${CMAKE_CURRENT_SOURCE_DIR}/ConanProfiles/windowsRelease")

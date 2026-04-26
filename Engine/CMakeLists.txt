@@ -1,5 +1,5 @@
 # general info
-cmake_minimum_required(VERSION 4.2)
+cmake_minimum_required(VERSION 3.30)
 
 # cpp options
 set(CMAKE_CXX_STANDARD 23)
