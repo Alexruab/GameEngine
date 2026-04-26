@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.30)
 
 # cpp options
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 
 # common options
 set(PROJECT_NAME GameEngines)
@@ -23,6 +23,10 @@ set(ENGINE_SOURCES
     Source/Log/Log.cpp
     Source/Log/Log.h
     Source/Core/Utility.h
+    Source/Window/GLFW/GLFWWindow.h
+    Source/Window/GLFW/GLFWWindow.cpp
+    Source/Window/GLFW/GLFWWindowManager.h
+    Source/Window/GLFW/GLFWWindowManager.cpp
 )
 
 add_library(${PROJECT_NAME}Lib ${ENGINE_SOURCES})
@@ -40,8 +44,13 @@ target_link_libraries(${PROJECT_NAME}TestRunner PRIVATE ${PROJECT_NAME}Lib)
 # add libs
 find_package(spdlog REQUIRED)
 target_link_libraries(${PROJECT_NAME}Lib PUBLIC spdlog::spdlog)
+
 find_package(GTest REQUIRED)
 target_link_libraries(${PROJECT_NAME}TestRunner PRIVATE gtest::gtest)
+
+find_package(glfw3 REQUIRED)
+target_link_libraries(${PROJECT_NAME}Lib PRIVATE glfw)
+
 
 # folders
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)

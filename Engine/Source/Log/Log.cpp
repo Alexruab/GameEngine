@@ -78,6 +78,10 @@ private:
     {
         std::error_code ec;
         fs::create_directory(c_logDirectory, ec);
+        if (ec)
+        {
+            std::cerr << "Failed to create log directory: " << ec.message() << std::endl;
+        }
         const auto now = std::chrono::system_clock::now();
         const auto nowSecond = std::chrono::floor<std::chrono::seconds>(now);
         const std::string timestamp = std::format(c_timestampFormat, nowSecond);

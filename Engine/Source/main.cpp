@@ -3,7 +3,8 @@
 
 int main()
 {
-    const GameEngine::Engine init;
+    GameEngine::Engine init;
+    init.Run();
 
     return EXIT_SUCCESS;
 }

@@ -1,4 +1,4 @@
-name: Linux Test Runner
+name: Windows Test Runner
 
 on:
   push:
@@ -46,7 +46,7 @@ jobs:
         if: always()
         with:
           name: Test Results
-          path: ${{env.TEST_REPORT_PATH}}
+          path: **/*-report.xml
           reporter: java-junit
           output-to: "step-summary"
           fail-on-error: "true"
